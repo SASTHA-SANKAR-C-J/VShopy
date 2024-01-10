@@ -1,3 +1,4 @@
+import 'package:ecommercesas/controller/apicontroller.dart';
 import 'package:ecommercesas/view/provider/my_provider.dart';
 import 'package:ecommercesas/widgets/cart_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,26 +14,39 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           InkWell(
-            onTap: () {
-              
-            },
+            onTap: () {},
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-              child: Container(
-                height: 35,
-                width: 100,
-                decoration: BoxDecoration(gradient: LinearGradient(
-                begin: Alignment.topLeft, // Define the start point of the gradient
-                end: Alignment.bottomRight, // Define the end point of the gradient
-                colors: [  Colors.purple,
-                    Colors.deepPurple], // Specify your two colors here
-              ),borderRadius: BorderRadius.circular(20)),
-                child: Center(child: Text("Checkout",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),),),
+              child: InkWell(
+                onTap: () {
+                  String updatedJson = updateJsonWithQuantityFromItems(
+                      publicApiResponseJson, providers.itemlist);
+                  showJsonDialog(context, updatedJson);
+                  // print(updatedJson);
+                },
+                child: Container(
+                  height: 35,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Colors.purple, Colors.deepPurple],
+                      ),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: const Center(
+                    child: Text(
+                      "Checkout",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
               ),
             ),
           )
         ],
-        title: Text(
+        title: const Text(
           "Cart",
           style: TextStyle(color: Colors.black),
         ),
@@ -40,7 +54,7 @@ class CartScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: InkWell(
           onTap: () => Navigator.pop(context),
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
           ),
@@ -55,8 +69,32 @@ class CartScreen extends StatelessWidget {
               productQuantity: providers.itemlist[index].quantity!,
               productImage: providers.itemlist[index].image!,
               index: index),
-          separatorBuilder: (context, index) => SizedBox(height: 15,),
+          separatorBuilder: (context, index) => const SizedBox(
+                height: 15,
+              ),
           itemCount: providers.itemlist.length),
     );
   }
+}
+
+void showJsonDialog(BuildContext context, String jsonStr) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("Updated JSON"),
+        content: SingleChildScrollView(
+          child: Text(jsonStr),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text("Close"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

@@ -1,23 +1,8 @@
-
 import 'dart:convert';
-
+import 'package:ecommercesas/model/item_modal.dart';
 import 'package:ecommercesas/model/productmodal.dart';
-// ... [Your PublicApiResponse class definition here]
-
-// Define the constant list of PublicApiResponse objects
-// List<PublicApiResponse> publicApiResponses = [
-//   PublicApiResponse(
-//     pName: "Apple",
-//     pId: 1,
-//     pCost: 30,
-//     pAvailability: 1,
-//     pDetails: "Imported from Swiss",
-//     pCategory: "Premium",
-//   ),
-//   // ... [Add other items in a similar way]
-// ];
-
-// Alternatively, if you want to define it from a JSON string:
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 String publicApiResponseJson = '''[
 {
 "p_name":"Apple",
@@ -57,17 +42,61 @@ String publicApiResponseJson = '''[
 }
 ]''';
 
-// Convert JSON string to PublicApiResponse objects
 List<PublicApiResponse> publicApiResponseFromJsonString(String str) =>
-    List<PublicApiResponse>.from(json.decode(str).map((x) => PublicApiResponse.fromJson(x)));
+    List<PublicApiResponse>.from(
+        json.decode(str).map((x) => PublicApiResponse.fromJson(x)));
 
-// Use this to get the constant list from JSON
-List<PublicApiResponse> publicApiResponseConstants = publicApiResponseFromJsonString(publicApiResponseJson);
+List<PublicApiResponse> publicApiResponseConstants =
+    publicApiResponseFromJsonString(publicApiResponseJson);
 
-List<PublicApiResponse> filterByCategory(List<PublicApiResponse> items, String category) {
+List<PublicApiResponse> filterByCategory(
+    List<PublicApiResponse> items, String category) {
   return items.where((item) => item.p_category == category).toList();
 }
 
-// Example usage:
-List<PublicApiResponse> tamilnaduItems = filterByCategory(publicApiResponseConstants, "Tamilnadu");
-List<PublicApiResponse> premiumItems = filterByCategory(publicApiResponseConstants, "Premium");
+List<PublicApiResponse> tamilnaduItems =
+    filterByCategory(publicApiResponseConstants, "Tamilnadu");
+List<PublicApiResponse> premiumItems =
+    filterByCategory(publicApiResponseConstants, "Premium");
+
+
+PublicApiResponse? responseData;
+Future<void> fetchapidata(BuildContext context) async {
+  try{
+  final url = Uri.parse("https://yourvegitabledata'api'here");
+  var response = await http.get(url);
+  if(response.statusCode == 200){
+  responseData = PublicApiResponse.fromJson(jsonDecode(response.body));
+  } else {
+    // ignore: use_build_context_synchronously
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Swipe down to refresh")));
+  }
+  } catch(e){
+    // ignore: use_build_context_synchronously
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${e.toString()} ; Swipe down to refresh")));
+  }
+}
+
+
+
+
+String updateJsonWithQuantityFromItems(String jsonStr, List<ItemModal> itemModels) {
+  // print("insode");
+  List<dynamic> jsonDynamic = json.decode(jsonStr);
+  List<Map<String, dynamic>> jsonData = jsonDynamic.cast<Map<String, dynamic>>();
+
+  for (var jsonItem in jsonData) {
+    ItemModal matchingItem = itemModels.firstWhere(
+      (item) => item.pid == jsonItem['p_id'],
+      orElse: () => ItemModal(name: null, image: null, price: null, quantity: 0, pid: null),
+    );
+
+    if (matchingItem.quantity != null && matchingItem.quantity! > 0) {
+      jsonItem['quantity'] = matchingItem.quantity;
+    }
+  }
+
+  return json.encode(jsonData);
+}
+
+

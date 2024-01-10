@@ -12,17 +12,13 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  //  @override
-  // void initState() {
-  //   super.initState();
-  // }
   int _selectedIntex = 0;
   @override
   Widget build(BuildContext context) {
     List screens = [
-      HomeScreen(),
-      PremiumScreen(),
-      TamilnaduSCreen(),
+      const HomeScreen(),
+      const PremiumScreen(),
+      const TamilnaduSCreen(),
     ];
     return Scaffold(
       body: screens[_selectedIntex],
@@ -30,7 +26,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         // height: 70,
         color: Colors.white,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: GNav(
               curve: Curves.ease,
               selectedIndex: 0,
@@ -45,7 +41,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   _selectedIntex = value;
                 });
               },
-              tabs: [
+              tabs: const [
                 GButton(
                   icon: Icons.home,
                   // text: 'All',
@@ -56,7 +52,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       child: Text(
                         "All",
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold,color: Colors.grey),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
                       ),
                     ),
                   ),
@@ -68,8 +66,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
                       "Premium",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.grey),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
                     ),
                   ),
                 ),

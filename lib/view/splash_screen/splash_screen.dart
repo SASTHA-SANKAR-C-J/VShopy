@@ -11,14 +11,11 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  void initState()  {
+  void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 5)).then((value) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>  BottomNavBar()
-          ));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const BottomNavBar()));
     });
   }
 
@@ -38,7 +35,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 "https://lottie.host/f35eb2a7-dd2c-4f07-a6e7-59a52ac42230/aNmLbdaIix.json",
                 height: height * 0.55,
                 width: width * 0.9999),
-            Text("VShopy.",style: TextStyle(fontSize: 35,color: Colors.deepPurple,fontWeight: FontWeight.w600),)
+            const Text(
+              "VShopy.",
+              style: TextStyle(
+                  fontSize: 35,
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.w600),
+            )
           ],
         ),
       ),

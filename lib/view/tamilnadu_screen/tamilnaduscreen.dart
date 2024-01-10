@@ -11,11 +11,11 @@ class TamilnaduSCreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: SizedBox(),
+        leading: const SizedBox(),
         backgroundColor: Colors.white,
         elevation: 0,
         leadingWidth: 0,
-        title: Text(
+        title: const Text(
           "Discover",
           style: TextStyle(color: Colors.black, fontSize: 25),
         ),
@@ -25,15 +25,15 @@ class TamilnaduSCreen extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CartScreen(),
+                    builder: (context) => const CartScreen(),
                   ));
             },
-            child: Icon(
+            child: const Icon(
               Icons.shopping_cart_outlined,
               color: Colors.black,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 15,
           )
         ],
@@ -48,7 +48,11 @@ class TamilnaduSCreen extends StatelessWidget {
                   Expanded(
                     flex: 6,
                     child: Container(
-                      child: Row(
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Row(
                         children: [
                           SizedBox(
                             width: 15,
@@ -64,40 +68,36 @@ class TamilnaduSCreen extends StatelessWidget {
                           )
                         ],
                       ),
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(10)),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
                       flex: 1,
                       child: Container(
-                        child: Icon(
-                          Icons.horizontal_split_outlined,
-                          color: Colors.white,
-                        ),
                         height: 40,
                         decoration: BoxDecoration(
                             color: Colors.deepPurple,
                             borderRadius: BorderRadius.circular(10)),
+                        child: const Icon(
+                          Icons.horizontal_split_outlined,
+                          color: Colors.white,
+                        ),
                       ))
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             GridView.builder(
               itemCount: tamilnaduItems.length,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: Stack(
@@ -107,12 +107,14 @@ class TamilnaduSCreen extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => DetailsScreen(
-                              stock: tamilnaduItems[index].p_availability!,
-                              details: tamilnaduItems[index].p_details.toString(),
-                              pid: tamilnaduItems[index].p_id!,
+                                stock: tamilnaduItems[index].p_availability!,
+                                details:
+                                    tamilnaduItems[index].p_details.toString(),
+                                pid: tamilnaduItems[index].p_id!,
                                 pic: tamilnaduItems[index].photo.toString(),
                                 price: tamilnaduItems[index].p_cost!,
-                                product: tamilnaduItems[index].p_name.toString()),
+                                product:
+                                    tamilnaduItems[index].p_name.toString()),
                           )),
                       child: Container(
                         height: 200,
@@ -127,18 +129,20 @@ class TamilnaduSCreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15),
                                   image: DecorationImage(
                                       fit: BoxFit.fitWidth,
-                                      image: NetworkImage(tamilnaduItems[index].photo.toString()))),
+                                      image: NetworkImage(tamilnaduItems[index]
+                                          .photo
+                                          .toString()))),
                             ),
                             Text(
                               tamilnaduItems[index].p_name.toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
                               'Mrp: ${tamilnaduItems[index].p_cost.toString()}',
-                              style:
-                                  TextStyle(fontSize: 11, color: Colors.green),
+                              style: const TextStyle(
+                                  fontSize: 11, color: Colors.green),
                             )
                           ],
                         ),
@@ -153,7 +157,7 @@ class TamilnaduSCreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
-                        child: Icon(Icons.favorite_border),
+                        child: const Icon(Icons.favorite_border),
                       ),
                     )
                   ],

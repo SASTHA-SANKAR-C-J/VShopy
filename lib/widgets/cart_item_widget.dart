@@ -13,7 +13,8 @@ class CartScreenWidget extends StatefulWidget {
       required this.productName,
       required this.productPrice,
       required this.productQuantity,
-      required this.productImage, required this.index});
+      required this.productImage,
+      required this.index});
 
   @override
   State<CartScreenWidget> createState() => _CartScreenWidgetState();
@@ -26,12 +27,18 @@ class _CartScreenWidgetState extends State<CartScreenWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
-        decoration: BoxDecoration(gradient: const LinearGradient(
-                begin: Alignment.topLeft, // Define the start point of the gradient
-                end: Alignment.bottomRight, // Define the end point of the gradient
-                colors: [  Colors.purple,
-                    Colors.deepPurple], // Specify your two colors here
-              ),borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin:
+                    Alignment.topLeft, // Define the start point of the gradient
+                end: Alignment
+                    .bottomRight, // Define the end point of the gradient
+                colors: [
+                  Colors.purple,
+                  Colors.deepPurple
+                ], // Specify your two colors here
+              ),
+              borderRadius: BorderRadius.circular(20)),
           height: 150,
           width: double.infinity,
           child: Row(
@@ -42,14 +49,14 @@ class _CartScreenWidgetState extends State<CartScreenWidget> {
                   height: 110,
                   width: 110,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
-                          image: NetworkImage(widget.productImage),
-                          fit: BoxFit.cover,
-                          )),
+                        image: NetworkImage(widget.productImage),
+                        fit: BoxFit.cover,
+                      )),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Padding(
@@ -59,12 +66,12 @@ class _CartScreenWidgetState extends State<CartScreenWidget> {
                   children: [
                     Text(
                       widget.productName,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 6,
                     ),
                     Text(
@@ -74,22 +81,12 @@ class _CartScreenWidgetState extends State<CartScreenWidget> {
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 6,
                     ),
                     Row(
                       children: [
-                        // InkWell(
-                        //   onTap: () {
-                        //     providers.decre();
-                        //   },
-                        //   child: Icon(
-                        //     Icons.remove_circle,
-                        //     color: Colors.black,
-                        //     size: 22,
-                        //   ),
-                        // ),
-                        SizedBox(
+                        const SizedBox(
                           width: 3,
                         ),
                         Text(
@@ -99,30 +96,25 @@ class _CartScreenWidgetState extends State<CartScreenWidget> {
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[300]),
                         ),
-                        // SizedBox(
-                        //   width: 5,
-                        // ),
-                        // InkWell(
-                        //   onTap: () {
-                        //     providers.incre();
-                        //   },
-                        //   child: Icon(Icons.add_circle,
-                        //       color: Colors.black, size: 22),
-                        // ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 2,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.55,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.55,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           InkWell(
-                            onTap:(){providers.deleteitem(widget.index);},
-                            child: Icon(Icons.delete,color: Colors.white,)),
-                          SizedBox(
+                              onTap: () {
+                                providers.deleteitem(widget.index);
+                              },
+                              child: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              )),
+                          const SizedBox(
                             width: 10,
                           ),
                         ],

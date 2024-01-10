@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final publicApiResponse = publicApiResponseFromJson(jsonString);
-
 import 'dart:convert';
 List<PublicApiResponse> publicApiResponseFromJson(String str) => List<PublicApiResponse>.from(json.decode(str).map((x) => PublicApiResponse.fromJson(x)));
 
